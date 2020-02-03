@@ -1,13 +1,15 @@
 all: SHELL379
 
-SHELL379: SHELL379.o commands.o
-	gcc -ggdb -Wall -std=c99 -o SHELL379 SHELL379.o commands.o
+SHELL379: SHELL379.o commands.o helper.o
+	gcc -ggdb -Wall  -o SHELL379 SHELL379.o commands.o helper.o
 
 SHELL379.o:
-	gcc -ggdb -Wall -std=c99 -c SHELL379.c
+	gcc -ggdb -Wall  -c SHELL379.c
 
 commands.o: commands.c commands.h
-	gcc -g -Wall -std=c99 -c commands.c
+	gcc -ggdb -Wall  -c commands.c
 
+helper.o: helper.c helper.h
+	gcc -ggdb -Wall -c helper.c
 clean:
-	rm SHELL379 SHELL379.o commands.o
+	rm SHELL379 SHELL379.o commands.o helper.o
