@@ -5,9 +5,10 @@
 #define MAX_LENGTH 20
 #define MAX_PT_ENTRIES 32
 
-jmp_buf Restart_Looping;
 
 
+struct process pcb[MAX_PT_ENTRIES];
+int index=0;
 
 
 /*
@@ -48,6 +49,12 @@ int cmd_launch(char **args)
   } else {
     // Parent process
     do {
+      struct process p;
+      pcb[index]=p;
+      p.index=index;
+      p.pid=pid;
+      strcpy(p.commandName,*args);
+      p.status=status;
       wpid = waitpid(pid, &status, WUNTRACED);
     } while (!WIFEXITED(status) && !WIFSIGNALED(status));
   }
